@@ -1,0 +1,45 @@
+﻿@using System.Web.Mvc.Html
+@using Sitecore.Data
+@using xDBCommentsManager
+@*@inherits System.Web.Mvc.WebViewPage<xDBCommentsManager.ApiControllers.CommentList>*@
+@inherits System.Web.Mvc.WebViewPage<List<Comment>>
+
+@if (Model.Any())
+{   
+    GetCommonSettings objGetCommonSettings = new GetCommonSettings();
+    var replySettings = objGetCommonSettings.GetCommonSetting();
+    foreach (var comment in Model)
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        int index = 1;
+        ICommentRepository _objRepository = new CommentRepository();
+        var list = _objRepository.Retrieve(comment.PostId.ToString(), true, null, null, "Ascending", comment.CommentId).ToList();
+        <li class="comment-content" data-level="level-@index">
+            <h5 class="comment-author-name">
+                By
+                @Html.Raw(comment.Author)
+                on <span class="comment-time">
+                    @Html.Raw(comment.Date.ToString("f"))
+                </span>
+            </h5>
+            <span class="comment-body">
+                @Html.Raw(comment.Body)
+            </span>
+            @if (replySettings.Enable.ToLower() == "true")
+            {
+                <a class="replyComment" parentcomment-id="@comment.CommentId">Reply</a>
+                            <div class="panel">
+                            </div>
+                if (list.Any())
+                {
+                    index++;
+                    var nestedChild = _objRepository.NestedListing(list, index, replySettings.Level, sb);
+                    @Html.Raw(nestedChild)
+                }
+            }
+
+        </li>
+    }
+}
+
+

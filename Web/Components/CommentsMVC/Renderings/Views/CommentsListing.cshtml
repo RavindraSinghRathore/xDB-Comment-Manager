@@ -1,0 +1,115 @@
+﻿@using System.Web.Mvc.Html
+@using Sitecore.Data
+@using xDBCommentsManager
+@inherits System.Web.Mvc.WebViewPage
+<script src="https://www.google.com/recaptcha/api.js?onload=loadCaptcha&render=explicit" async defer></script>
+
+@{
+    IEnumerable<Comment> comments = null;
+    ICommentRepository objRepository = new CommentRepository();
+    GetCommonSettings objGetCommonSettings = new GetCommonSettings();
+    var commonSetting = objGetCommonSettings.GetCommonSetting();
+    ID currentItem = Sitecore.Context.Item.ID;
+
+    // Assign value of current item to hidden field.
+    @Html.Hidden("hfGUID", Sitecore.Context.Item.ID.ToString(), new { @id = "hfGUID" })
+
+    // Assign value of current item to hidden field.
+    @Html.Hidden("hfParentCommentID", new { @id = "hfParentCommentID" })
+
+    // Assign value of result per click to hidden field.
+    @Html.Hidden("hfResultsPerClick", commonSetting.CommentOnLoadMore, new { @id = "hfResultsPerClick" })
+
+    // Assign value of total comment to hidden field.
+    @Html.Hidden("hftotalRecords", objRepository.Retrieve(currentItem.ToString(), true, null, null, "Ascending", "00000000-0000-0000-0000-000000000000").Count().ToString(), new { @id = "hftotalRecords" });
+
+    //Assign value of comment display on page load to hidden field.
+    var resultOnPageLoad = commonSetting.CommentOnPageLoad;
+    @Html.Hidden("hfresultOnPageLoad", resultOnPageLoad, new { @id = "hfresultOnPageLoad" });
+
+    if (currentItem.ToString() != "")
+    {
+        // Retrieve comments.
+        comments = objRepository.Retrieve(currentItem.ToString(), true, null, null, "Ascending", "00000000-0000-0000-0000-000000000000").Take(resultOnPageLoad);
+    }
+}
+
+
+
+
+@if (comments != null && comments.Any())
+{
+    <!--Display the comment with user name and date time of comment-->
+    <div class="basic-grey">
+        <div class="blog-container">
+            <h3 class="comment-header">Comments</h3>
+            <ul class="comment-Container main-comment-container">
+                @foreach (Comment comment in comments)
+                {
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    int index = 1;
+                    ICommentRepository _objRepository = new CommentRepository();
+                    var list = _objRepository.Retrieve(comment.PostId.ToString(), true, null, null, "Ascending", comment.CommentId).ToList();
+                    <li class="comment-content" data-level="level-@index">
+                        <h5 class="comment-author-name">
+                            By
+                            @Html.Raw(comment.Author)
+                            on <span class="comment-time">
+                                @Html.Raw(comment.Date.ToString("f"))
+                            </span>
+                        </h5>
+                        <span class="comment-body">
+                            @Html.Raw(comment.Body)
+                        </span>
+                        @if (commonSetting.Enable.ToLower() == "true")
+                        {
+                            <a class="replyComment" parentcomment-id="@comment.CommentId">Reply</a>
+                            <div class="panel">
+                            </div>
+                            if (list.Any())
+                            {
+                                index++;
+                                var nestedChild = _objRepository.NestedListing(list, index, commonSetting.Level, sb);
+                                @Html.Raw(nestedChild)
+                            }
+                        }
+                    </li>
+                }
+            </ul>
+
+
+        </div>
+        <div class="write-commment-container" id="commentsContainer" style="display: none">
+            <div class="comment-comment-append">
+                @Html.Hidden("hfGUID", Sitecore.Context.Item.ID.ToString())
+                <div class="author-inner-container">
+                    <label><span>Your Name :</span></label>
+                    @Html.TextBox("AuthorName", null, new { @class = "txt-author-name", placeholder = "Your Full Name" })
+                </div>
+                <div class="email-inner-container">
+                    <label>
+                        <span>Your Email :</span>
+                    </label>
+                    @Html.TextBox("AuthorEmail", null, new { @class = "txt-email", type = "email", placeholder = "Valid Email Address" })
+                </div>
+                <div class="comment-inner-container">
+                    <label>
+                        <span>Comment :</span>
+                    </label>
+                    @Html.TextArea("AuthorComment", null, new { @class = "txt-comment-body", placeholder = "Your Comment" })
+                </div>
+                <div class="clear"></div>
+                <div class="google-recaptcha-container"></div>
+                <div class="submit-container">
+                    <a id="submitComment" class="submit-button btn btn-default ld-ext-right">
+                        Reply
+                        <div class="ld ld-ring ld-spin"></div>
+                    </a>
+                    <a id="btnCancel" class="cancel-button">Cancel</a>
+                </div>
+            </div>
+
+        </div>
+        <a class="load_more-button" id="Btn-More"></a>
+    </div>
+}

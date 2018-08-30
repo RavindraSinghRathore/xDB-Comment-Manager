@@ -1,0 +1,225 @@
+﻿
+.clear {
+    clear: both;
+    display: block;
+    content: '';
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+    /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+    button.accordion.active, button.accordion:hover {
+        background-color: #ddd;
+    }
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+/* Basic Grey */
+.basic-grey {
+    /*max-width: 500px;*/
+    background: #F7F7F7;
+    padding: 25px 15px 25px 10px;
+    font: 16px Georgia, "Times New Roman", Times, serif;
+    color: #888;
+    text-shadow: 1px 1px 1px #FFF;
+    border: 1px solid #E4E4E4;
+}
+.form-append .submit-container {
+    margin-bottom: 10px;
+    margin-left: 21%;
+    margin-top: 10px;
+}
+.write-commment-container .g-recaptcha, .blog-comment-container .g-recaptcha {
+    float: left;
+    margin-left: 20.8%;   
+}
+
+    .write-commment-container .g-recaptcha > div, .blog-comment-container .g-recaptcha > div {
+        float: right;
+        padding-right: 20px;
+        width: 70%;
+    }
+
+    .write-commment-container .g-recaptcha:after, .blog-comment-container .g-recaptcha:after {
+        clear: both;
+        display: block;
+        content: '';
+    }
+
+.write-commment-container .submit-container {
+    padding-top: 20px;
+}
+
+.comment-Container {
+    list-style: none;
+    padding: 0px 30px;
+}
+.comment-Container .form-append .comment-comment-append {
+    padding-top: 20px;
+    margin-top: 20px;
+}
+.submit-button , .replyComment ,.cancel-button{
+    margin-top: 5px; 
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #E27575;
+    border: none;
+    padding: 10px 25px 10px 25px;
+    color: #FFF;
+    box-shadow: 1px 1px 5px #B6B6B6;
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px #9E3F3F;
+    cursor: pointer;
+    width: auto;
+}
+.submit-button:hover, .replyComment:hover {
+     background: #CF7A7A;
+}
+.comment-body {
+    display: block;
+    font: 14px Georgia, "Times New Roman", Times, serif;
+    margin-bottom: 10px;
+
+}
+.comment-author-name {
+    margin-bottom: 5px;
+}
+.blog-comment-container .submit-container {
+    padding-right: 5%;
+    width: 73%;
+    padding-left: 22%;
+    padding-top: 20px;
+}
+
+    .blog-comment-container .submit-container:after {
+        clear: both;
+        display: block;
+        content: '';
+    }
+
+.basic-grey .blog-container {
+    border-bottom: 1px solid #E4E4E4;
+    margin: -10px -15px 30px -10px;
+}
+
+    .basic-grey .blog-container h3 {
+        /*font-size: 25px;*/
+        padding: 0px 0px 10px 30px;
+        display: block;
+        border-bottom: 1px solid #E4E4E4;
+        /*margin: -10px -15px 30px -10px;*/
+        color: #888;
+    }
+    
+.google-recaptcha-container {
+    margin: 0 auto 0 21%;
+    right: 0;
+}
+.basic-grey h1 {
+    font-size: 25px;
+    padding: 0px 0px 10px 40px;
+    display: block;
+    border-bottom: 1px solid #E4E4E4;
+    margin: -10px -15px 30px -10px;
+    color: #888;
+}
+
+    .basic-grey h1 > span {
+        display: block;
+        font-size: 11px;
+    }
+
+.basic-grey label {
+    display: block;
+    margin: 0px;
+}
+
+    .basic-grey label > span {
+        float: left;
+        width: 20%;
+        text-align: right;
+        padding-right: 10px;
+        margin-top: 10px;
+        color: #888;
+    }
+
+.basic-grey input[type="text"], .basic-grey input[type="email"], .basic-grey textarea, .basic-grey select {
+    border: 1px solid #DADADA;
+    color: #888;
+    height: 30px;
+    margin-bottom: 16px;
+    margin-right: 6px;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 3px 3px 3px 5px;
+    width: 70%;
+    font-size: 12px;
+    line-height: 15px;
+    box-shadow: inset 0px 1px 4px #ECECEC;
+    -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+    -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+
+.basic-grey textarea {
+    padding: 5px 3px 3px 5px;
+}
+
+
+
+.basic-grey textarea {
+    height: 100px;
+}
+
+.basic-grey .button {
+    background: #E27575;
+    border: none;
+    padding: 10px 25px 10px 25px;
+    color: #FFF;
+    box-shadow: 1px 1px 5px #B6B6B6;
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px #9E3F3F;
+    cursor: pointer;
+}
+
+    .basic-grey .button:hover {
+        background: #CF7A7A;
+    }
+
+.more-results {
+    cursor: pointer;
+    color: #888;
+    /*font-size: 20px;*/
+    padding: 0px 0px 10px 40px;
+    display: block;
+}
+
+.load_more-button {
+    cursor: pointer;
+    color: #888;
+    /*font-size: 20px;*/
+    padding: 0px 0px 10px 40px;
+    display: block;
+}
+.validation {
+    width: 70%;
+    margin-left: 21%;
+}

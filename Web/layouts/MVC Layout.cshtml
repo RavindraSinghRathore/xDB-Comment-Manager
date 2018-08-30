@@ -1,0 +1,25 @@
+﻿@using Sitecore.Mvc
+@inherits System.Web.Mvc.WebViewPage<object>
+
+    <!DOCTYPE HTML>
+
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="~/Components/CommentsAssets/Style/comments.css" rel="stylesheet" />
+        <script src="~/Components/CommentsAssets/JS/jquery-2.2.3.min.js"></script>
+        <script src="~/Components/CommentsAssets/JS/comments.js"></script>
+     
+        <title>Default</title>
+     
+    </head>
+    <body>
+
+        <div class="container">
+            @Html.Sitecore().Placeholder("main")
+        </div>
+
+
+    </body>
+</html>
